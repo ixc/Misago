@@ -63,7 +63,7 @@ urlpatterns += [
 
 urlpatterns += [
     url(
-        r'^u/(?P<slug>[a-zA-Z0-9]+)/(?P<pk>\d+)/',
+        r'^u/(?P<slug>[a-zA-Z0-9-]+)/(?P<pk>\d+)/',
         include([
             url(r'^$', profile.LandingView.as_view(), name='user'),
             url(r'^posts/$', profile.UserPostsView.as_view(), name='user-posts'),
