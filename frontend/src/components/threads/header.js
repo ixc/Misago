@@ -73,7 +73,7 @@ export default class extends React.Component {
     const parent = this.props.categories[this.props.route.category.parent];
 
     return (
-      <div className="hidden-xs col-sm-2 col-lg-1">
+      <div className="go-back-button hidden-xs col-sm-2 col-lg-1">
         <Link
           className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
           to={parent.url.index + this.props.route.list.path}
@@ -92,7 +92,7 @@ export default class extends React.Component {
 
     /* jshint ignore:start */
     return (
-      <div className="col-xs-6">
+      <div className="start-thread-button col-xs-6">
         <Button
           className="btn-primary btn-block btn-outline"
           onClick={this.startThread}
@@ -113,7 +113,7 @@ export default class extends React.Component {
 
     /* jshint ignore:start */
     return (
-      <div className="col-xs-6">
+      <div className="mark-as-read-button col-xs-6">
         <Button
           className="btn-default btn-block btn-outline"
           onClick={this.markAsRead}
