@@ -4,7 +4,7 @@ import Avatar from 'misago/components/avatar';
 
 export default function({ category }) {
   return (
-    <div className="col-md-2 hidden-xs hidden-sm">
+    <div className="col-md-4 hidden-xs hidden-sm">
       <ul className="list-unstyled category-stats">
         <Threads threads={category.threads} />
         <Posts posts={category.posts} />

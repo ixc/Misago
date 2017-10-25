@@ -1,7 +1,6 @@
 // jshint ignore:start
 import React from 'react';
 import Main from './main';
-import LastThread from './last-thread';
 import Stats from './stats';
 import Subcategories from './subcategories';
 
@@ -27,7 +26,6 @@ export default function({ category, isFirst }) {
       <div className="row">
         <Main category={category} />
         <Stats category={category} />
-        <LastThread category={category} />
       </div>
       <Subcategories
         category={category}
