@@ -194,7 +194,7 @@ export function SubscriptionMenu(props) {
   if (!props.user.id) return null;
 
   return (
-    <div className="col-xs-12 col-sm-4">
+    <div className="col-xs-12 col-sm-4 subscription-menu-container">
       <Subscription
         className="dropdown"
         dropdownClassName="dropdown-menu dropdown-menu-right stick-to-bottom"
