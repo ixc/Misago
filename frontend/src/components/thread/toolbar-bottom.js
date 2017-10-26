@@ -67,11 +67,13 @@ export function Subscription(props) {
 
   return (
     <div className={xsClass + " col-sm-4"}>
+      {/*
       <SubscriptionSwitch
         btnClassName="btn-block"
         className="dropup"
         {...props}
       />
+      */}
     </div>
   );
 }
