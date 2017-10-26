@@ -82,7 +82,7 @@ export function Reply(props) {
   return (
     <div className="col-xs-6 col-sm-4">
       <ReplyButton
-        className="btn btn-primary btn-block btn-outline"
+        className="btn btn-primary btn-block btn-outline reply-button"
         onClick={props.onClick}
       />
     </div>

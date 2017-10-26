@@ -183,7 +183,7 @@ export function Reply(props) {
   return (
     <div className="col-sm-4 hidden-xs">
       <ReplyButton
-        className="btn btn-primary btn-block btn-outline"
+        className="btn btn-primary btn-block btn-outline reply-button"
         onClick={props.openReplyForm}
       />
     </div>
