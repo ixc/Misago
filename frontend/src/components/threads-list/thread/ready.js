@@ -25,16 +25,18 @@ export default function(props) {
 
   const flavor = category || activeCategory;
 
-  let className = 'thread-main col-xs-12';
-  if (showOptions) {
-    if (thread.moderation.length) {
-      className += ' col-sm-9 col-md-7';
-    } else {
-      className += ' col-sm-10 col-md-7';
-    }
-  } else {
-    className += ' col-sm-12 col-md-9';
-  }
+  // Keeps showOptions value so authenticated user can start a new thread
+  // Hack to hide other options in the listing
+  let className = 'thread-main col-xs-12 col-md-9';
+  //if (showOptions) {
+  //  if (thread.moderation.length) {
+  //    className += ' col-sm-9 col-md-7';
+  //  } else {
+  //    className += ' col-sm-10 col-md-7';
+  //  }
+  //} else {
+  //  className += ' col-sm-12 col-md-9';
+  //}
 
   return (
     <li className={getClassName(thread.is_read, isBusy, isSelected, flavor)}>
@@ -81,12 +83,14 @@ export default function(props) {
         <div className="col-md-3 hidden-xs hidden-sm thread-last-action">
           <LastAction thread={thread} />
         </div>
+        {/*
         <Options
           disabled={isBusy}
           display={showOptions}
           isSelected={isSelected}
           thread={thread}
         />
+        */}
       </div>
     </li>
   );
