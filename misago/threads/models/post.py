@@ -186,10 +186,10 @@ class Post(models.Model):
         return self.thread_type.get_post_absolute_url(self)
 
     def set_search_document(self, thread_title=None):
+        document = '\n\n'.join([self.poster_name, self.original])
         if thread_title:
-            self.search_document = filter_search('\n\n'.join([thread_title, self.original]))
-        else:
-            self.search_document = filter_search(self.original)
+            document = '\n\n'.join([thread_title, document])
+        self.search_document = filter_search(document)
 
     def update_search_vector(self):
         self.search_vector = SearchVector(
