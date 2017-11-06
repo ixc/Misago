@@ -92,7 +92,7 @@ export default class extends React.Component {
 
     /* jshint ignore:start */
     return (
-      <div className="start-thread-button col-xs-6">
+      <div className="start-thread-button col-xs-12">
         <Button
           className="btn-primary btn-block btn-outline"
           onClick={this.startThread}
@@ -144,7 +144,7 @@ export default class extends React.Component {
         <div className="page-header">
           <div className="container">
             <div className="row">
-              <div className={isAuthenticated ? "col-sm-6 col-md-8" : "col-xs-12"}>
+              <div className={isAuthenticated ? "col-sm-9 col-md-10" : "col-xs-12"}>
                 <div className="row">
                   {this.getGoBackButton()}
                   <div className={headerClassName}>
@@ -157,9 +157,9 @@ export default class extends React.Component {
                 </div>
               </div>
               {isAuthenticated && (
-                <div className="col-sm-6 col-md-4 xs-margin-top">
+                <div className="col-sm-3 col-md-2 xs-margin-top">
                   <div className="row">
-                    {this.getMarkAsReadButton()}
+                    {/* {this.getMarkAsReadButton()} */}
                     {this.getStartThreadButton()}
                   </div>
                 </div>

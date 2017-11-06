@@ -5,11 +5,8 @@ import Icon from './icon';
 
 export default function({ category }) {
   return (
-    <div className="col-xs-12 col-sm-6 col-md-6 category-main">
+    <div className="col-md-8 category-main">
       <div className="media">
-        <div className="media-left">
-          <Icon category={category} />
-        </div>
         <div className="media-body">
           <h4 className="media-heading">
             <a href={category.url.index}>
