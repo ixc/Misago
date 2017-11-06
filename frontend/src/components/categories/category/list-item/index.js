@@ -2,6 +2,7 @@
 import React from 'react';
 import Main from './main';
 import Stats from './stats';
+import LastThreadDate from './last-thread-date';
 import Subcategories from './subcategories';
 
 export default function({ category, isFirst }) {
@@ -26,6 +27,7 @@ export default function({ category, isFirst }) {
       <div className="row">
         <Main category={category} />
         <Stats category={category} />
+        <LastThreadDate category={category} />
       </div>
       <Subcategories
         category={category}

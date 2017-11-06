@@ -5,7 +5,7 @@ import Icon from './icon';
 
 export default function({ category }) {
   return (
-    <div className="col-md-8 category-main">
+    <div className="col-md-6 category-main">
       <div className="media">
         <div className="media-body">
           <h4 className="media-heading">
