@@ -135,7 +135,7 @@ export function UserNav({ user }) {
           href={user.url}
           role="button"
         >
-          <Avatar user={user} size="64" />
+          {gettext("My Account")}
         </a>
         <UserMenu user={user} />
       </li>
@@ -183,7 +183,7 @@ export class CompactUserNav extends React.Component {
     /* jshint ignore:start */
     return (
       <button type="button" onClick={this.showUserMenu}>
-        <Avatar user={this.props.user} size="50" />
+        {gettext("My Account")}
       </button>
     );
     /* jshint ignore:end */
