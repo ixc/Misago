@@ -315,4 +315,5 @@ UserProfileSerializer = UserSerializer.subset_fields(
     'status',
     'api',
     'url',
+    'user_badge_css_classes',
 )

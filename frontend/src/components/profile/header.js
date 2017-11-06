@@ -161,6 +161,7 @@ export default class extends React.Component {
 
     const isProfileOwner = this.props.user.id === this.props.profile.id;
     const canMessage = !isProfileOwner && this.props.user.acl.can_start_private_threads;
+    const hasBadges = typeof this.props.profile.user_badge_css_classes !== "undefined";
 
     let cols = 0;
     if (canFollow) cols += 1;
@@ -195,6 +196,15 @@ export default class extends React.Component {
                       size="100"
                       size2x="200"
                     />
+
+                    {!!hasBadges && (
+                    <div className="user-badges">
+                      {this.props.profile.user_badge_css_classes.map((item, index) => (
+                        <span className={item} />
+                      ))}
+                    </div>
+                    )}
+
                     <h1>{this.props.profile.username}</h1>
 
                   </div>
