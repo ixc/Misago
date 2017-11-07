@@ -9,7 +9,7 @@ export default function(props) {
   return (
     <div className="row row-toolbar">
       <div className="col-xs-12 text-center visible-xs-block">
-        <More more={props.posts.more} />
+        <More {...props} />
         <div className="toolbar-vertical-spacer" />
       </div>
       <div className="col-md-7">
@@ -18,7 +18,7 @@ export default function(props) {
             <Pager {...props} />
           </div>
           <div className="col-sm-8 col-md-7 hidden-xs">
-            <More more={props.posts.more} />
+            <More {...props} />
           </div>
         </div>
       </div>

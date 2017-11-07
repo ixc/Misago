@@ -6,7 +6,7 @@ export default function(props) {
   return (
     <nav className="misago-pagination pull-left">
       <Pager {...props} />
-      <More more={props.posts.more} />
+      <More {...props} />
     </nav>
   );
 }
@@ -133,16 +133,26 @@ export function LastPage(props) {
 }
 
 export function More(props) {
-  let message = null;
-  if (props.more) {
+  let message = null, full_message = null;
+  // Show page X of Y
+  if (props.posts.pages > 1) {
+    message = "Page %(page)s of %(count)s. ";
+    message = interpolate(message, {'page': props.posts.page, 'count': props.posts.pages}, true);
+  } else {
+    message = "";
+  }
+  full_message = message;
+  // Show count of posts remaining, if any
+  if (props.posts.more) {
     message = ngettext(
       "There is %(more)s more post in this thread.",
       "There are %(more)s more posts in this thread.",
-      props.more);
-    message = interpolate(message, {'more': props.more}, true);
+      props.posts.more);
+    message = interpolate(message, {'more': props.posts.more}, true);
   } else {
     message = gettext("There are no more posts in this thread.");
   }
+  full_message += message;
 
-  return <p>{message}</p>;
+  return <p>{full_message}</p>;
 }
