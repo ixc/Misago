@@ -673,6 +673,9 @@ def allow_unhide_thread(user, target):
         }
     )
 
+    if not category_acl['can_hide_threads']:
+        raise PermissionDenied(_("You can't reveal threads in this category."))
+
     if not category_acl['can_close_threads']:
         if target.category.is_closed:
             raise PermissionDenied(_("This category is closed. You can't reveal threads in it."))
