@@ -29,7 +29,7 @@ export class Permalink extends React.Component {
     permaUrl += window.location.host;
     permaUrl += this.props.post.url.index;
 
-    prompt(gettext("Permament link to this post:"), permaUrl);
+    prompt(gettext("Permanent link to this post:"), permaUrl);
   };
 
   render() {
@@ -43,7 +43,7 @@ export class Permalink extends React.Component {
           <span className="material-icon">
             link
           </span>
-          {gettext("Permament link")}
+          {gettext("Permanent link")}
         </button>
       </li>
     );
