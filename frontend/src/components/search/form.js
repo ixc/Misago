@@ -8,6 +8,7 @@ import { hydrate as updateUsers } from 'misago/reducers/users';
 import ajax from 'misago/services/ajax';
 import snackbar from 'misago/services/snackbar';
 import store from 'misago/services/store';
+import Autocomplete from 'misago/components/search/autocomplete'
 
 export default class extends Form {
   constructor(props) {
@@ -15,8 +16,9 @@ export default class extends Form {
 
     this.state = {
       isLoading: false,
-
-      query: props.search.query
+      query: props.search.query,
+      isAutocompleteVisible: false,
+      autocompleteIndex: 0
     };
   }
 
@@ -27,8 +29,21 @@ export default class extends Form {
   }
 
   onQueryChange = (event) => {
-    this.changeValue('query', event.target.value);
+    const query = event.target.value;
+    this.changeValue('query', query);
+
+    let isAutocompleteVisible = false;
+    if (query.length > 1) {
+      isAutocompleteVisible = true;
+    }
+    this.setState({isAutocompleteVisible});
   };
+
+  onAutocompleteSelect(query) {
+    this.changeValue('query', query);
+    this.setState({isAutocompleteVisible: false});
+    this.handleSubmit();
+  }
 
   clean() {
     if (!this.state.query.trim().length) {
@@ -73,6 +88,14 @@ export default class extends Form {
     }));
   }
 
+  handleInputFocus() {
+    let isAutocompleteVisible = false;
+    if (this.state.query.length > 1) {
+      isAutocompleteVisible = true;
+    }
+    this.setState({isAutocompleteVisible});
+  }
+
   render() {
     return (
       <div className="page-header-bg">
@@ -93,6 +116,13 @@ export default class extends Form {
                           onChange={this.onQueryChange}
                           type="text"
                           value={this.state.query}
+                          onFocus={() => this.handleInputFocus()}
+                        />
+                        <Autocomplete
+                          visible={this.state.isAutocompleteVisible}
+                          query={this.state.query}
+                          providerId={this.props.provider.id}
+                          onSelect={query => this.onAutocompleteSelect(query)}
                         />
                       </div>
                     </div>

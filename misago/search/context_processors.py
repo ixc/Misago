@@ -20,6 +20,7 @@ def search_providers(request):
 
     request.frontend_context['SEARCH_URL'] = reverse('misago:search')
     request.frontend_context['SEARCH_API'] = reverse('misago:api:search')
+    request.frontend_context['SEARCH_AUTOCOMPLETE_API'] = reverse('search_autocomplete')
     request.frontend_context['SEARCH_PROVIDERS'] = []
 
     for provider in allowed_providers:
