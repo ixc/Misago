@@ -143,6 +143,20 @@ export default class extends React.Component {
     /* jshint ignore:end */
   }
 
+  getBreadcrumb(category) {
+    // example: HOME / COMMUNITY
+    return (
+      <div className="page-breadcrumbs">
+        <div className="container">
+          <ol className="breadcrumb hidden-xs">
+            <li><a href="/">Home</a></li>
+            <li><a href={category.url.index}>{category.name}</a></li>
+          </ol>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     /* jshint ignore:start */
     let headerClassName = 'col-xs-12';
@@ -152,9 +166,13 @@ export default class extends React.Component {
 
     const isAuthenticated = !!this.props.user.id;
 
+    var category = this.props.route.category;
+    var showBreadcrumb = (category.parent !== null);
+
     return (
       <div className="page-header-bg">
         <div className="page-header">
+          { showBreadcrumb ? this.getBreadcrumb(category) : '' }
           <div className="container">
             <div className="row">
               <div className={isAuthenticated ? "col-sm-9 col-md-10" : "col-xs-12"}>
