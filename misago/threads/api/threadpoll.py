@@ -58,7 +58,7 @@ class ViewSet(viewsets.ViewSet):
             thread=thread,
             category=thread.category,
             poster=request.user,
-            poster_name=request.user.username,
+            poster_name=request.user.fullname,
             poster_slug=request.user.slug,
             poster_ip=request.user_ip,
         )
