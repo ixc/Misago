@@ -7,7 +7,7 @@
 <strong>{{ thread.title }}</strong>
 {% endcapture %}
 {% blocktrans trimmed with user=recipient.username sender=sender.username thread=thread_title %}
-{{ user }}, you are receiving this message because {{ sender }} has invited you to participate in private thread {{ thread }}.
+{{ user }}, you are receiving this message because {{ sender }} has invited you to participate to {{ thread }}.
 {% endblocktrans %}
 <br>
 <br>

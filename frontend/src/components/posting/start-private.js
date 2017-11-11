@@ -34,7 +34,7 @@ export default class extends Form {
 
   /* jshint ignore:start */
   onCancel = () => {
-    const cancel = confirm(gettext("Are you sure you want to discard private thread?"));
+    const cancel = confirm(gettext("Are you sure you want to discard private message?"));
     if (cancel) {
       posting.close();
     }
