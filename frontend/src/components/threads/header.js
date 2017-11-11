@@ -74,14 +74,27 @@ export default class extends React.Component {
 
     return (
       <div className="go-back-button hidden-xs col-sm-2 col-lg-1">
-        <Link
-          className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
-          to={parent.url.index + this.props.route.list.path}
-        >
-          <span className="material-icon">
-            keyboard_arrow_left
-          </span>
-        </Link>
+        {(parent.parent !== null) ? (
+          <Link
+            className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
+            to={parent.url.index + this.props.route.list.path}
+          >
+            <span className="material-icon">
+              keyboard_arrow_left
+            </span>
+          </Link>
+        ) : (  // root category
+               // show a link to the homepage (which contains the category listing)
+               // instead of a link to /threads (root category page)
+            <a
+              className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
+              href="/"
+            >
+              <span className="material-icon">
+                keyboard_arrow_left
+              </span>
+            </a>
+        )}
       </div>
     );
     /* jshint ignore:end */
