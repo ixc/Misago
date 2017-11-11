@@ -22,11 +22,22 @@ export default function(props) {
 }
 
 export function Breadcrumb(props) {
-  return (
-    <li>
-      <a href={props.node.url.index}>{props.node.name}</a>
-    </li>
-  );
+  if (props.node.level == 0) { // root category
+    // show a link to the homepage (which contains the category listing)
+    // instead of a link to /threads (root category page)
+    return (
+      <li>
+        <a href="/">Home</a>
+      </li>
+    );
+  }
+  else {
+    return (
+      <li>
+        <a href={props.node.url.index}>{props.node.name}</a>
+      </li>
+    );
+  }
 }
 
 export function GoBack(props) {
