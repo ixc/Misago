@@ -12,6 +12,7 @@ export default function({ post, thread }) {
   const { poster } = post;
 
   return (
+
     <div className="col-xs-12 col-md-3 post-side post-side-registered">
       <Select
         post={post}
@@ -38,7 +39,7 @@ export default function({ post, thread }) {
               className="item-title"
               href={poster.url}
             >
-              {poster.username}
+              {poster.fullname}
             </a>
             <UserStatus status={poster.status}>
               <StatusIcon status={poster.status} />
