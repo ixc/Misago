@@ -204,8 +204,7 @@ export default class extends React.Component {
                       ))}
                     </div>
                     )}
-
-                    <h1>{this.props.profile.username}</h1>
+                    <h1>{this.props.profile.fullname}</h1>
 
                   </div>
                   {!!cols && (
