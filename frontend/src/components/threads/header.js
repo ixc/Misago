@@ -143,6 +143,7 @@ export default class extends React.Component {
     /* jshint ignore:end */
   }
 
+  /* jshint ignore:start */
   getBreadcrumb(category) {
     // example: HOME / COMMUNITY
     return (
@@ -156,6 +157,7 @@ export default class extends React.Component {
       </div>
     );
   }
+  /* jshint ignore:end */
 
   render() {
     /* jshint ignore:start */
