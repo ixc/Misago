@@ -84,7 +84,7 @@ export class UserMenu extends React.Component {
           <li>
             <a href={misago.get('PRIVATE_THREADS_URL')}>
               <span className="material-icon">message</span>
-              {gettext("Private threads")}
+              {gettext("Private messages")}
               <PrivateThreadsBadge user={user} />
             </a>
           </li>
@@ -153,7 +153,7 @@ export function UserPrivateThreadsLink({ user }) {
       <a
         className="navbar-icon"
         href={misago.get('PRIVATE_THREADS_URL')}
-        title={gettext("You have unread private threads.")}>
+        title={gettext("You have unread private messages.")}>
         <span className="material-icon">
           message
         </span>
