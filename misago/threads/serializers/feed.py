@@ -14,7 +14,7 @@ __all__ = [
 
 FeedUserSerializer = UserSerializer.subset_fields(
     'id',
-    'username',
+    'fullname',
     'avatars',
     'url',
     'title',
