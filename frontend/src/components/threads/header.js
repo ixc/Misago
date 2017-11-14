@@ -169,7 +169,7 @@ export default class extends React.Component {
     const isAuthenticated = !!this.props.user.id;
 
     var category = this.props.route.category;
-    var showBreadcrumb = (category.parent !== null);
+    var showBreadcrumb = (category.parent !== null || category.name.startsWith("Private"));
 
     return (
       <div className="page-header-bg">

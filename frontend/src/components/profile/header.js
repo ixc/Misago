@@ -154,6 +154,22 @@ export default class extends React.Component {
     }
   }
 
+  /* jshint ignore:start */
+  getBreadcrumb(user) {
+    // example: HOME / JOHN
+    return (
+      <div className="page-breadcrumbs">
+        <div className="container">
+          <ol className="breadcrumb hidden-xs">
+            <li><a href="/">Home</a></li>
+            <li><a href={user.url.index}>{user.fullname}</a></li>
+          </ol>
+        </div>
+      </div>
+    );
+  }
+  /* jshint ignore:end */
+
   render() {
     /* jshint ignore:start */
     const canFollow = this.props.profile.acl.can_follow;
@@ -178,6 +194,9 @@ export default class extends React.Component {
     return (
       <div className="page-header-bg">
         <div className={headerClassName}>
+
+          {this.getBreadcrumb(this.props.profile)}
+
           <div className="container">
 
             <IsDisabledMessage
