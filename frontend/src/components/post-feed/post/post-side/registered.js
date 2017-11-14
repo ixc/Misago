@@ -24,7 +24,7 @@ export default function({ post, poster }) {
               className="item-title"
               href={poster.url}
             >
-              {poster.username}
+              {poster.fullname}
             </a>
           </div>
           <UserTitle
