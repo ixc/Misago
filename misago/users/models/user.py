@@ -359,7 +359,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
     def get_full_name(self):
-        if self.profile_fields and 'fullname' in self.profile_fields:
+        if (
+            self.profile_fields and
+            'fullname' in self.profile_fields and
+            self.profile_fields['fullname']
+        ):
             return self.profile_fields['fullname']
         else:
             return self.username
