@@ -214,7 +214,7 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
 
 UserCardSerializer = UserSerializer.subset_fields(
     'id',
-    'username',
+    'fullname',
     'joined_on',
     'rank',
     'title',

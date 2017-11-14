@@ -41,7 +41,7 @@ export default function({ showStatus, user }) {
 
             <div className="user-card-username">
               <a href={user.url}>
-                {user.username}
+                {user.fullname}
               </a>
             </div>
             <div className="user-card-title">
