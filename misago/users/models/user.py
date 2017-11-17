@@ -359,18 +359,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
     def get_full_name(self):
-        if (
-            self.profile_fields and
-            'fullname' in self.profile_fields and
-            self.profile_fields['fullname']
-        ):
-            return self.profile_fields['fullname']
-        else:
-            return self.username
+        return self._get_profile_field_value('fullname', default=self.username)
 
     @property
     def fullname(self):
         return self.get_full_name()
+
+    @property
+    def location(self):
+        return self._get_profile_field_value('location', default=None)
+
+    @property
+    def website(self):
+        return self._get_profile_field_value('website', default=None)
 
     def get_short_name(self):
         return self.username
@@ -449,6 +450,17 @@ class User(AbstractBaseUser, PermissionsMixin):
             return True
         except User.DoesNotExist:
             return False
+
+    def _get_profile_field_value(self, field_name, default):
+        if (
+            self.profile_fields and
+            field_name in self.profile_fields and
+            self.profile_fields[field_name]
+        ):
+            return self.profile_fields[field_name]
+        else:
+            return default
+
 
 
 class Online(models.Model):

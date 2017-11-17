@@ -54,6 +54,21 @@ export default function({ post, thread }) {
           <UserStatusLabel poster={poster} />
           <UserPostcount poster={poster} />
 
+          <br />
+          <span className="member-since">Member since: {poster.joined_on.format('DD/MM/YYYY')}</span>
+          {poster.location && (
+            <div>
+              <br />
+              <span className="member-location">{poster.location}</span>
+            </div>
+          )}
+
+          {poster.website && (
+            <div>
+              <br />
+              <span className="member-website"><a href={poster.website} target="_blank">{poster.website.replace(/^https?\:\/\//i, "")}</a></span>
+            </div>
+          )}
         </div>
       </div>
     </div>

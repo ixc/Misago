@@ -20,6 +20,9 @@ UserSerializer = BaseUserSerializer.subset_fields(
     'status',
     'posts',
     'url',
+    'joined_on',
+    'location',
+    'website',
 )
 
 
