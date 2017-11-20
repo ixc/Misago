@@ -19,7 +19,6 @@ export default class extends React.Component {
       </div>
     );
   }
-  /* jshint ignore:end */
 
   render() {
     return (
@@ -46,7 +45,6 @@ export default class extends React.Component {
         </div>
       </div>
     );
-    /* jshint ignore:end */
   }
 }
 
