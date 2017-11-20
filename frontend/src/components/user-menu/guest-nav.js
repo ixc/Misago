@@ -80,7 +80,7 @@ export class CompactGuestNav extends React.Component {
   render() {
     /* jshint ignore:start */
     this.showGuestMenu();
-    return "";
+    return null;
     // always (for mobile/tablet) show the guest menu instead of having a button to show/hide it
     //return (
     //  <button type="button" onClick={this.showGuestMenu}>
