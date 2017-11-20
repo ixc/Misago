@@ -58,8 +58,8 @@ urlpatterns += threads_list_patterns(
 
 urlpatterns += threads_list_patterns(
     'private-threads', PrivateThreadsList, (
-        r'^private-threads/$', r'^private-threads/my/$', r'^private-threads/new/$',
-        r'^private-threads/unread/$', r'^private-threads/subscribed/$',
+        r'^private-messages/$', r'^private-messages/my/$', r'^private-messages/new/$',
+        r'^private-messages/unread/$', r'^private-messages/subscribed/$',
     )
 )
 
