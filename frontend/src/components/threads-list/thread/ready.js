@@ -68,6 +68,9 @@ export default function(props) {
                 {thread.title}
               </a>
 
+              <br />
+              <span>{thread.starter_name}</span>
+
               <BottomDetails
                 category={category}
                 disabled={isBusy}
