@@ -59,6 +59,12 @@ export class UserMenu extends React.Component {
         </li>
         <li className="divider" />
         <li>
+          <a href="/cockpit/">
+            <span className="material-icon">explore</span>
+            {gettext("Cockpit")}
+          </a>
+        </li>
+        <li>
           <a href={user.url}>
             <span className="material-icon">account_circle</span>
             {gettext("See your profile")}
