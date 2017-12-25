@@ -185,6 +185,14 @@ class Post(models.Model):
     def get_absolute_url(self):
         return self.thread_type.get_post_absolute_url(self)
 
+    @property
+    def poster_signature_parsed(self):
+        # COULD DO: save it as a field instead / cache it
+        if self.poster:
+            return self.poster.signature_parsed
+        else:
+            return ""
+
     def set_search_document(self, thread_title=None):
         document = '\n\n'.join([self.poster_name, self.original])
         if thread_title:

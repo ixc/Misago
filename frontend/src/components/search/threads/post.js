@@ -27,6 +27,11 @@ export function PostBody(props) {
     return (
       <div className="panel-body">
         <MisagoMarkup markup={props.content} />
+        {props.post.poster_signature_parsed ?
+          <div
+            className="signature"
+            dangerouslySetInnerHTML={{__html: props.post.poster_signature_parsed}}
+          /> : null}
       </div>
     );
   }

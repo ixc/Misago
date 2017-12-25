@@ -50,6 +50,7 @@ class PostSerializer(serializers.ModelSerializer, MutableFields):
             'id',
             'poster',
             'poster_name',
+            'poster_signature_parsed',
             'poster_ip',
             'content',
             'attachments',
