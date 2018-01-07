@@ -32,6 +32,7 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
     email = serializers.SerializerMethodField()
     rank = RankSerializer(many=False, read_only=True)
     signature = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
 
     acl = serializers.SerializerMethodField()
     is_followed = serializers.SerializerMethodField()
@@ -58,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
             'is_avatar_locked',
             'signature',
             'is_signature_locked',
+            'location',
             'followers',
             'following',
             'threads',
@@ -102,6 +104,13 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
     def get_signature(self, obj):
         if obj.has_valid_signature:
             return obj.signature_parsed
+        else:
+            return None
+
+    def get_location(self, obj):
+        """ Only include user's location if they have made it public """
+        if obj._get_profile_field_value('is_location_public', default=False):
+            return obj.location
         else:
             return None
 
