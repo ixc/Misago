@@ -89,6 +89,8 @@ class Post(models.Model):
     search_document = models.TextField(null=True, blank=True)
     search_vector = SearchVectorField()
 
+    legacy_id = models.BigIntegerField(blank=True, null=True, help_text="Post ID from legacy IWC Forum")
+
     class Meta:
         indexes = [
             PgPartialIndex(

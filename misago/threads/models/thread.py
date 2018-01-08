@@ -85,6 +85,8 @@ class Thread(models.Model):
         through_fields=('thread', 'user'),
     )
 
+    legacy_id = models.BigIntegerField(blank=True, null=True, help_text="Discussion ID from legacy IWC Forum")
+
     class Meta:
         indexes = [
             PgPartialIndex(
