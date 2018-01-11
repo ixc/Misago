@@ -4,7 +4,7 @@ import misago from 'misago';
 import ajax from 'misago/services/ajax';
 
 function highlightTextQuery(body, query) {
-  const start = body.indexOf(query);
+  const start = body.toLowerCase().indexOf(query.toLowerCase());
   if (start === -1) {
     return [body, '', ''];
   }
