@@ -1,4 +1,4 @@
-dist: trusty
+group: travis_lts
 sudo: required
 addons:
   postgresql: "9.4"
