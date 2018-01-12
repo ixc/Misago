@@ -1,4 +1,4 @@
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+# from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector  # TODO
 from django.utils.translation import ugettext_lazy as _
 
 from misago.conf import settings

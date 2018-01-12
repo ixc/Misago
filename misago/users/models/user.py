@@ -4,17 +4,18 @@ from django.contrib.auth.models import AnonymousUser as DjangoAnonymousUser
 from django.contrib.auth.models import UserManager as BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.postgres.fields import HStoreField, JSONField
 from django.core.mail import send_mail
 from django.db import IntegrityError, models, transaction
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from django_mysql.models import JSONField
+
 from misago.acl import get_user_acl
 from misago.acl.models import Role
 from misago.conf import settings
-from misago.core.pgutils import PgPartialIndex
+# from misago.core.pgutils import PgPartialIndex  # TODO
 from misago.core.utils import slugify
 from misago.users import avatars
 from misago.users.signatures import is_user_signature_valid
@@ -264,7 +265,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     last_posted_on = models.DateTimeField(null=True, blank=True)
 
-    profile_fields = HStoreField(default=dict)
+    profile_fields = JSONField(default=dict)
 
     USERNAME_FIELD = 'slug'
     REQUIRED_FIELDS = ['email']
@@ -272,16 +273,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     class Meta:
-        indexes = [
-            PgPartialIndex(
-                fields=['is_staff'],
-                where={'is_staff': True},
-            ),
-            PgPartialIndex(
-                fields=['requires_activation'],
-                where={'requires_activation__gt': 0},
-            ),
-        ]
+        pass
+        # TODO
+        # indexes = [
+        #     PgPartialIndex(
+        #         fields=['is_staff'],
+        #         where={'is_staff': True},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['requires_activation'],
+        #         where={'requires_activation__gt': 0},
+        #     ),
+        # ]
 
     def clean(self):
         self.username = self.normalize_username(self.username)

@@ -44,13 +44,25 @@ ALLOWED_HOSTS = []
 
 DATABASES = {
     'default': {
-        # Misago requires PostgreSQL to run
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+        # Misago requires PostgreSQL or MySQL to run
+        'ENGINE': 'django.db.backends.mysql',  # 'django.db.backends.postgresql',
+        'NAME': 'ixc_misago',  # TODO
+        'USER': 'misagouser',  # TODO
+        'PASSWORD': 'misagouser',  # TODO
         'HOST': 'localhost',
-        'PORT': 5432,
+        'PORT': None,
+        # Recommended MySQL options
+        'OPTIONS': {
+            # Strict mode for MySQL connections
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
+            # Tell MySQLdb to connect with 'utf8mb4' character set
+            'charset': 'utf8mb4',
+        },
+        # Tell Django to build the test database with the 'utf8mb4' character set
+        'TEST': {
+            'CHARSET': 'utf8mb4',
+            'COLLATION': 'utf8mb4_unicode_ci',
+        }
     }
 }
 
@@ -186,6 +198,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'mptt',
     'rest_framework',
+    'django_mysql',
 
     # Misago apps
     'misago.admin',

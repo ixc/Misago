@@ -3,11 +3,12 @@ from __future__ import unicode_literals
 import copy
 
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.postgres.fields import JSONField
-from django.contrib.postgres.search import SearchVector, SearchVectorField
+# from django.contrib.postgres.search import SearchVector, SearchVectorField  # TODO
 from django.db import models
 from django.utils import six, timezone
 from django.utils.encoding import python_2_unicode_compatible
+
+from django_mysql.models import JSONField
 
 from misago.conf import settings
 from misago.core.pgutils import PgPartialIndex
@@ -87,7 +88,7 @@ class Post(models.Model):
     )
 
     search_document = models.TextField(null=True, blank=True)
-    search_vector = SearchVectorField()
+    # search_vector = SearchVectorField()
 
     class Meta:
         indexes = [
@@ -99,7 +100,7 @@ class Post(models.Model):
                 fields=['is_hidden'],
                 where={'is_hidden': False},
             ),
-            GinIndex(fields=['search_vector']),
+            # GinIndex(fields=['search_vector']),  # TODO
         ]
 
         index_together = [

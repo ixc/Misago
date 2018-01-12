@@ -121,7 +121,7 @@ TEST_NAME = 'travis_ci_test'
         settings_file += """
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'misago_test',
         'USER': '%s',
         'PASSWORD': '',

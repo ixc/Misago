@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 import django.db.models.deletion
 import django.utils.timezone
 from django.conf import settings
-from django.contrib.postgres.fields import JSONField
 from django.db import migrations, models
+
+from django_mysql.models import JSONField
 
 import misago.users.avatars.store
 

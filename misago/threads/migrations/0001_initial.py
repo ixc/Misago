@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 import django.db.models.deletion
 import django.utils.timezone
 from django.conf import settings
-from django.contrib.postgres.fields import JSONField
-from django.contrib.postgres.search import SearchVectorField
+# from django.contrib.postgres.search import SearchVectorField  # TODO
 from django.db import migrations, models
+
+from django_mysql.models import JSONField
 
 import misago.threads.models.attachment
 
@@ -91,7 +92,7 @@ class Migration(migrations.Migration):
                 ('likes', models.PositiveIntegerField(default=0)),
                 ('last_likes', JSONField(blank=True, null=True)),
                 ('search_document', models.TextField(blank=True, null=True)),
-                ('search_vector', SearchVectorField()),
+                # ('search_vector', SearchVectorField()),
             ],
             options={},
             bases=(models.Model, ),
@@ -445,7 +446,7 @@ class Migration(migrations.Migration):
                 ('posted_on', models.DateTimeField(default=django.utils.timezone.now)),
                 ('length', models.PositiveIntegerField(default=0)),
                 ('question', models.CharField(max_length=255)),
-                ('choices', django.contrib.postgres.fields.jsonb.JSONField()),
+                ('choices', JSONField()),
                 ('allowed_choices', models.PositiveIntegerField(default=1)),
                 ('allow_revotes', models.BooleanField(default=False)),
                 ('votes', models.PositiveIntegerField(default=0)),

@@ -2,8 +2,9 @@
 from __future__ import unicode_literals
 
 import django.db.models.deletion
-from django.contrib.postgres.fields import JSONField
 from django.db import migrations, models
+
+from django_mysql.models import JSONField
 
 
 class Migration(migrations.Migration):

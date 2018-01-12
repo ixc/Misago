@@ -2,9 +2,10 @@ from datetime import timedelta
 from math import ceil
 
 from django.conf import settings
-from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.utils import timezone
+
+from django_mysql.models import JSONField
 
 
 class Poll(models.Model):
