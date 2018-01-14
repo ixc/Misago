@@ -58,6 +58,7 @@ pylint.txt
 /avatar_store/
 /media/
 /testproject/
+/testforum/
 
 # GitBook Documentation
 _book/

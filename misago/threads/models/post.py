@@ -193,10 +193,12 @@ class Post(models.Model):
             self.search_document = filter_search(self.original)
 
     def update_search_vector(self):
-        self.search_vector = SearchVector(
-            'search_document',
-            config=settings.MISAGO_SEARCH_CONFIG,
-        )
+        pass
+        # TODO
+        # self.search_vector = SearchVector(
+        #     'search_document',
+        #     config=settings.MISAGO_SEARCH_CONFIG,
+        # )
 
     @property
     def short(self):
