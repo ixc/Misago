@@ -106,9 +106,9 @@ MISAGO_POST_SEARCH_FILTERS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'travis_ci_test',
-        'USER': 'postgres',
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '',
