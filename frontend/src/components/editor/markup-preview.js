@@ -19,7 +19,7 @@ export default function(props) {
         </div>
         <div className="modal-body markup-preview">
           <MisagoMarkup markup={props.markup} />
-          {props.post.poster_signature_parsed ?
+          {props.post && props.post.poster_signature_parsed ?
             <div
               className="signature"
               dangerouslySetInnerHTML={{__html: props.post.poster_signature_parsed}}
