@@ -100,6 +100,8 @@ class ValidateUsernameContentTests(TestCase):
         validate_username_content('123')
         validate_username_content('Bob')
         validate_username_content('Bob123')
+        # We customised to accept spaces in usernames
+        validate_username_content('Bob Boberson')
 
     def test_invalid_name(self):
         """validate_username_content disallows invalid names"""
@@ -107,8 +109,9 @@ class ValidateUsernameContentTests(TestCase):
             validate_username_content('!')
         with self.assertRaises(ValidationError):
             validate_username_content('Bob!')
-        with self.assertRaises(ValidationError):
-            validate_username_content('Bob Boberson')
+        # We customised to accept spaces in usernames
+        # with self.assertRaises(ValidationError):
+        #     validate_username_content('Bob Boberson')
         with self.assertRaises(ValidationError):
             validate_username_content(u'Rafał')
         with self.assertRaises(ValidationError):

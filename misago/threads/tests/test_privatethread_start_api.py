@@ -45,7 +45,7 @@ class StartPrivateThreadTests(AuthenticatedUserTestCase):
         override_acl(self.user, {'can_start_private_threads': 0})
 
         response = self.client.post(self.api_link)
-        self.assertContains(response, "You can't start private threads.", status_code=403)
+        self.assertContains(response, "You can't start private messages.", status_code=403)
 
     def test_empty_data(self):
         """no data sent handling has no showstoppers"""
@@ -146,7 +146,7 @@ class StartPrivateThreadTests(AuthenticatedUserTestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(
             response.json(), {
-                'to': ["You can't add more than 3 users to private thread (you've added 50)."],
+                'to': ["You can't add more than 3 users to private message (you've added 50)."],
             }
         )
 
