@@ -238,7 +238,7 @@ def clean_attachment_link(link, force_shva=False):
     try:
         resolution = resolve(link)
         url_name = ':'.join(resolution.namespaces + [resolution.url_name])
-    except (Http404, ValueError):
+    except (Http404, ValueError, TypeError):
         return link
 
     if url_name in MISAGO_ATTACHMENT_VIEWS:
