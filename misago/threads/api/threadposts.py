@@ -206,6 +206,7 @@ class ViewSet(viewsets.ViewSet):
             'id': post.pk,
             'api': post.get_api_url(),
             'post': post.original,
+            'content': post.content,
             'attachments': attachments_json,
             'can_protect': bool(thread.category.acl['can_protect_posts']),
             'is_protected': post.is_protected,
