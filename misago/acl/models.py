@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 
-from django_mysql.models import JSONField
+from jsonfield import JSONField
 
 from . import version as acl_version
 

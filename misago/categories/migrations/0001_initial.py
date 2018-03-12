@@ -7,7 +7,7 @@ import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
 
-from django_mysql.models import JSONField
+from jsonfield import JSONField
 
 from misago.acl.models import permissions_default
 

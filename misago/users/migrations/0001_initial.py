@@ -6,7 +6,7 @@ import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
 
-from django_mysql.models import JSONField
+from jsonfield import JSONField
 
 import misago.users.avatars.store
 
@@ -200,7 +200,7 @@ class Migration(migrations.Migration):
                     )
                 ),
                 ('name', models.CharField(max_length=255)),
-                ('slug', models.CharField(unique=True, max_length=255)),
+                ('slug', models.CharField(unique=True, max_length=190)),
                 ('description', models.TextField(null=True, blank=True)),
                 ('title', models.CharField(max_length=255, null=True, blank=True)),
                 ('css_class', models.CharField(max_length=255, null=True, blank=True)),

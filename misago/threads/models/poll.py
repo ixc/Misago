@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from django_mysql.models import JSONField
+from jsonfield import JSONField
 
 
 class Poll(models.Model):

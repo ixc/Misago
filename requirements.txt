@@ -17,3 +17,4 @@ psycopg2~=2.7.1
 pytz
 requests<3
 unidecode~=0.4.20
+django-jsonfield==1.0.1

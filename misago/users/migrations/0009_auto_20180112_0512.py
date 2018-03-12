@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import django_mysql.models
+from jsonfield import JSONField
 
 
 class Migration(migrations.Migration):
@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='profile_fields',
-            field=django_mysql.models.JSONField(default=dict),
+            field=JSONField(default=dict),
         ),
     ]

@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from django_mysql.models import JSONField
+from jsonfield import JSONField
 
 from misago.acl import get_user_acl
 from misago.acl.models import Role
