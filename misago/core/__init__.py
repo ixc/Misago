@@ -5,6 +5,7 @@ SUPPORTED_ENGINES = [
     'django.db.backends.postgresql',
     'django.db.backends.postgresql_psycopg2',
     'django.db.backends.mysql',
+    'extras.old_mysql_backend'
 ]
 
 
