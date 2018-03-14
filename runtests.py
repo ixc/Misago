@@ -133,7 +133,7 @@ TEST_NAME = 'travis_ci_test'
         settings_file += """
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'extras.old_mysql_backend',
         'NAME': 'misago_test',
         'USER': '%s',
         'PASSWORD': '',
@@ -142,7 +142,7 @@ DATABASES = {
         # Recommended MySQL options
         'OPTIONS': {
             # Strict mode for MySQL connections
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1; SET GLOBAL innodb_file_format=Barracuda, innodb_large_prefix=1",
             # Tell MySQLdb to connect with 'utf8mb4' character set
             'charset': 'utf8mb4',
         },
