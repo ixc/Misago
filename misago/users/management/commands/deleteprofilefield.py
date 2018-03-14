@@ -28,7 +28,7 @@ class Command(BaseCommand):
         deleted = 0
 
         queryset = UserModel.objects.filter(
-            profile_fields__has_keys=[fieldname],
+            profile_fields__has_key=fieldname
         )
 
         for user in queryset.iterator():
