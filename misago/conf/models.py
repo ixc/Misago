@@ -1,6 +1,6 @@
 from django.db import models
 
-from jsonfield import JSONField
+from extras.oms_json.fields import JSONField
 
 from . import utils
 

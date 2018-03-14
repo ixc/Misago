@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 
-from jsonfield import JSONField
+from extras.oms_json.fields import JSONField
 
 from misago.acl.models import permissions_default
 

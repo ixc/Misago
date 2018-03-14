@@ -7,7 +7,7 @@ from django.conf import settings
 # from django.contrib.postgres.search import SearchVectorField  # TODO
 from django.db import migrations, models
 
-from jsonfield import JSONField
+from extras.oms_json.fields import JSONField
 
 import misago.threads.models.attachment
 

@@ -8,7 +8,7 @@ from django.db import models
 from django.utils import six, timezone
 from django.utils.encoding import python_2_unicode_compatible
 
-from jsonfield import JSONField
+from extras.oms_json.fields import JSONField
 
 from misago.conf import settings
 from misago.core.pgutils import PgPartialIndex
