@@ -1,3 +1,4 @@
+import json
 from django.db.models import Transform
 from django.db.models.lookups import Lookup
 from django.utils import six
@@ -41,24 +42,23 @@ class JSONHasKey(Lookup):
 
         # we're only interested in a single key name
         key_name = rhs % rhs_params[0]
-
-        return "INSTR({}, %s) != 0".format(lhs), [key_name]
+        # key would usually be of the form "key": so look strictly for that
+        # the key_name here already contains quotes so just append the colon
+        return "INSTR({}, CONCAT(%s, \":\")) != 0".format(lhs), [key_name]
 
 
 class JSONExactLookup(Lookup):
     """
     A mysql 5.6 implementation of an exact JSON field lookup using the INSTR function call.
     The filter would look like jsonfield__key=value. Note that this simply looks for the existence of the
-    value and not of the field and value.
+    value, not of the field and value, opting to use the pattern : <value>.
     """
     lookup_name = 'exact'
 
     def as_sql(self, compiler, connection):
-        rhs, rhs_params = self.process_rhs(compiler, connection)
-
         json_field_alias, json_field_params = self.lhs.lhs.as_sql(compiler, connection)
 
-        return "(INSTR({}, %s) != 0)".format(json_field_alias), [self.rhs]
+        return "(INSTR({}, CONCAT(\": \" , %s)) != 0)".format(json_field_alias), [self.rhs]
 
 
 class JSONContainsLookup(Lookup):
@@ -79,7 +79,6 @@ class JSONContainsLookup(Lookup):
         json_field_alias, json_field_params = self.lhs.lhs.as_sql(compiler, connection)
 
         # field contains key && field contains value
-
         return "({} AND (%s like %s))".format(key_transform), (json_field_alias, value_lookup)
 
 
@@ -104,7 +103,7 @@ class KeyTransform(Transform):
         lhs, params = compiler.compile(self.lhs)
         lookup = self.key_name
 
-        return "(INSTR(%s, '%s') != 0)", (lhs, lookup)
+        return "(INSTR(%s, CONCAT('%s', \":\")) != 0)", (lhs, lookup)
 
 
 class KeyTransformFactory(object):
