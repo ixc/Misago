@@ -393,16 +393,17 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django.db.backends.schema': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
+        # uncomment the following to monitor the queries and schema ops executed
+        # 'django.db.backends.schema': {
+        #     'handlers': ['console'],
+        #     'level': 'DEBUG',
+        #     'propagate': True,
+        # },
+        # 'django.db.backends': {
+        #     'handlers': ['console'],
+        #     'level': 'DEBUG',
+        #     'propagate': True,
+        # },
     },
     'formatters': {
         'simple': {
