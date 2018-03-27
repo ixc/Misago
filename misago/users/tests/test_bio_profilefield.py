@@ -83,7 +83,6 @@ class BioProfileFieldTests(AdminTestCase):
 
     def test_admin_search_field(self):
         """admin users search searches this field"""
-        self.skipTest('Fix search')  # TODO
         test_link = reverse('misago:admin:users:accounts:index')
 
         response = self.client.get('{}?redirected=1&profilefields=Ipsum'.format(test_link))
