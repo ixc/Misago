@@ -79,7 +79,7 @@ class JSONContainsLookup(Lookup):
         json_field_alias, json_field_params = self.lhs.lhs.as_sql(compiler, connection)
 
         # field contains key && field contains value
-        return "({} AND (%s like %s))".format(key_transform), (json_field_alias, value_lookup)
+        return "({0} AND (INSTR({1}, %s) != 0))".format(key_transform, json_field_alias), [value_lookup.strip("\"")]
 
 
 JSONField.register_lookup(JSONHasKey)
@@ -101,9 +101,11 @@ class KeyTransform(Transform):
 
     def as_sql(self, compiler, connection):
         lhs, params = compiler.compile(self.lhs)
+
+        # the lookup for a transform in this case would be the key
         lookup = self.key_name
 
-        return "(INSTR(%s, CONCAT('%s', \":\")) != 0)", (lhs, lookup)
+        return "(INSTR(%s, CONCAT('%s', \"\\\":\")) != 0)", (lhs, lookup)
 
 
 class KeyTransformFactory(object):
