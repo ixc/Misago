@@ -14,9 +14,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        BtreeGinExtension(),
-        migrations.AddIndex(
-            model_name='post',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['search_vector'], name='misago_thre_search__b472a2_gin'),
-        ),
+        # NOOP
+        # when using mysql and ES, this is not needed
+        # BtreeGinExtension(),
+        # migrations.AddIndex(
+        #     model_name='post',
+        #     index=django.contrib.postgres.indexes.GinIndex(fields=['search_vector'], name='misago_thre_search__b472a2_gin'),
+        # ),
     ]
