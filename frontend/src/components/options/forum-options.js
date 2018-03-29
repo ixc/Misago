@@ -127,7 +127,7 @@ export default class extends Form {
               </FormGroup>
 
               <FormGroup
-                label={gettext("Private thread invitations")}
+                label={gettext("Private message invitations")}
                 for="id_limits_private_thread_invites_to"
               >
                 <Select

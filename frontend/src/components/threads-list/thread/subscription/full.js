@@ -66,11 +66,11 @@ export default class extends React.Component {
 export function Label({ moderation, subscription }) {
   if (moderation.length) return null;
 
-  let text = gettext("Disabled");
+  let text = gettext("Subscribe");
   if (subscription === true) {
     text = gettext("E-mail");
   } else if (subscription === false) {
-    text = gettext("Enabled");
+    text = gettext("Subscribed");
   }
 
   return (

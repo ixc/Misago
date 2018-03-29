@@ -16,7 +16,7 @@ from misago.conf import settings
 from .bans import get_email_ban, get_username_ban
 
 
-USERNAME_RE = re.compile(r'^[0-9a-z]+$', re.IGNORECASE)
+USERNAME_RE = re.compile(r'^[0-9a-z- ]+$', re.IGNORECASE)
 
 UserModel = get_user_model()
 
@@ -70,7 +70,7 @@ def validate_username_banned(value):
 
 def validate_username_content(value):
     if not USERNAME_RE.match(value):
-        raise ValidationError(_("Username can only contain latin alphabet letters and digits."))
+        raise ValidationError(_("Username can only contain latin alphabet letters, digits, hyphens and spaces."))
 
 
 def validate_username_length(value):

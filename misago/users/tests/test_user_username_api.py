@@ -172,7 +172,7 @@ class UserUsernameModerationTests(AuthenticatedUserTestCase):
 
         self.assertContains(
             response,
-            "Username can only contain latin alphabet letters and digits.",
+            "Username can only contain latin alphabet letters, digits, hyphens and spaces.",
             status_code=400
         )
 

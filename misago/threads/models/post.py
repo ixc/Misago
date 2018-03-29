@@ -90,6 +90,8 @@ class Post(models.Model):
     search_document = models.TextField(null=True, blank=True)
     # search_vector = SearchVectorField()
 
+    legacy_id = models.BigIntegerField(blank=True, null=True, help_text="Post ID from legacy IWC Forum")
+
     class Meta:
         indexes = [
             PgPartialIndex(
@@ -186,11 +188,19 @@ class Post(models.Model):
     def get_absolute_url(self):
         return self.thread_type.get_post_absolute_url(self)
 
-    def set_search_document(self, thread_title=None):
-        if thread_title:
-            self.search_document = filter_search('\n\n'.join([thread_title, self.original]))
+    @property
+    def poster_signature_parsed(self):
+        # COULD DO: save it as a field instead / cache it
+        if self.poster:
+            return self.poster.signature_parsed
         else:
-            self.search_document = filter_search(self.original)
+            return ""
+
+    def set_search_document(self, thread_title=None):
+        document = '\n\n'.join([self.poster_name, self.original])
+        if thread_title:
+            document = '\n\n'.join([thread_title, document])
+        self.search_document = filter_search(document)
 
     def update_search_vector(self):
         pass

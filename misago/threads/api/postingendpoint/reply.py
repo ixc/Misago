@@ -51,9 +51,9 @@ class ReplyMiddleware(PostingMiddleware):
 
     def new_thread(self, validated_data):
         self.thread.set_title(validated_data['title'])
-        self.thread.starter_name = self.user.username
+        self.thread.starter_name = self.user.fullname
         self.thread.starter_slug = self.user.slug
-        self.thread.last_poster_name = self.user.username
+        self.thread.last_poster_name = self.user.fullname
         self.thread.last_poster_slug = self.user.slug
         self.thread.started_on = self.datetime
         self.thread.last_post_on = self.datetime
@@ -66,7 +66,7 @@ class ReplyMiddleware(PostingMiddleware):
     def new_post(self, validated_data, parsing_result):
         self.post.thread = self.thread
         self.post.poster = self.user
-        self.post.poster_name = self.user.username
+        self.post.poster_name = self.user.fullname
         self.post.poster_ip = self.request.user_ip
         self.post.posted_on = self.datetime
 

@@ -26,8 +26,8 @@ export function UnreadLabel(props) {
   if (props.post.is_read) return null;
 
   return (
-    <span className="label label-unread hidden-xs">
-      {gettext("New post")}
+    <span className="label label-unread hidden-sm">
+      {gettext("New post since last visit")}
     </span>
   );
 }

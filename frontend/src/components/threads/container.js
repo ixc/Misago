@@ -27,6 +27,18 @@ export default class extends React.Component {
     }
   }
 
+  /* jshint ignore:start */
+  getCategoryStats() {
+    if (this.props.route.category) {
+      return (
+        <p className="category-stats">{this.props.threadsCount} posts</p>
+      );
+    } else {
+      return null;
+    }
+  }
+  /* jshint ignore:end */
+
   getDisableToolbar() {
     return !this.props.isLoaded || this.props.isBusy || this.props.busyThreads.length;
   }
@@ -70,6 +82,9 @@ export default class extends React.Component {
       <div className="container">
 
         {this.getCategoryDescription()}
+
+        {this.getCategoryStats()}
+
         {this.getToolbar()}
 
         {this.props.children}

@@ -42,7 +42,7 @@ export function NewLabel({ isRead, url }) {
         comment
       </span>
       <span className="detail-text">
-        {gettext("New posts")}
+        {gettext("New posts since last visit")}
       </span>
     </a>
   )

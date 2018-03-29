@@ -15,7 +15,7 @@ export class GuestMenu extends React.Component {
     /* jshint ignore:start */
     return (
       <ul
-        className="dropdown-menu user-dropdown dropdown-menu-right"
+        className="dropdown-menu user-dropdown dropdown-menu-right visible-xs"
         role="menu"
       >
         <li className="guest-preview">
@@ -24,8 +24,8 @@ export class GuestMenu extends React.Component {
             {gettext('Sign in or register to start and participate in discussions.')}
           </p>
           <div className="row">
-            <div className="col-xs-6">
-
+            <div className="col-xs-2"></div>
+            <div className="col-xs-4">
               <button
                 className="btn btn-default btn-block"
                 onClick={this.showSignInModal}
@@ -33,15 +33,13 @@ export class GuestMenu extends React.Component {
               >
                 {gettext("Sign in")}
               </button>
-
             </div>
-            <div className="col-xs-6">
-
+            <div className="col-xs-4">
               <RegisterButton className="btn-success btn-block">
                 {gettext("Register")}
               </RegisterButton>
-
             </div>
+            <div className="col-xs-2"></div>
           </div>
         </li>
       </ul>
@@ -54,7 +52,7 @@ export class GuestNav extends GuestMenu {
   render() {
     /* jshint ignore:start */
     return (
-      <div className="nav nav-guest">
+      <div className="nav nav-guest hidden-xs">
         <div className="navbar-left">
           <NavbarSearch />
         </div>
@@ -81,11 +79,14 @@ export class CompactGuestNav extends React.Component {
 
   render() {
     /* jshint ignore:start */
-    return (
-      <button type="button" onClick={this.showGuestMenu}>
-        <Avatar size="64" />
-      </button>
-    );
+    this.showGuestMenu();
+    return null;
+    // always (for mobile/tablet) show the guest menu instead of having a button to show/hide it
+    //return (
+    //  <button type="button" onClick={this.showGuestMenu}>
+    //    <Avatar size="64" />
+    //  </button>
+    //);
     /* jshint ignore:end */
   }
 }

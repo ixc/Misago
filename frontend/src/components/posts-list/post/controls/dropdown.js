@@ -8,7 +8,7 @@ import SplitModal from './split';
 
 export default function(props) {
   return (
-    <ul className="dropdown-menu dropdown-menu-right stick-to-bottom">
+    <ul className="dropdown-menu dropdown-menu-right stick-to-bottom post-controls">
       <Permalink {...props} />
       <PostEdits {...props} />
       <Approve {...props} />
@@ -19,8 +19,34 @@ export default function(props) {
       <Hide {...props} />
       <Unhide {...props} />
       <Delete {...props} />
+
+      <Sharelink service='facebook' name='Facebook' />
+      <Sharelink service='twitter' name='Twitter' />
+      <Sharelink service='pinterest' name='Pinterest' />
+      <Sharelink service='linkedIn' name='Linked In' />
+      <Sharelink service='weibo' name='Weibo' />
     </ul>
   );
+}
+
+// Click handling currently done via share_bar.js
+export class Sharelink extends React.Component {
+  render() {
+    let serviceIcnClassname = this.props.service;
+    if (serviceIcnClassname === "linkedIn") {
+      serviceIcnClassname = "linked-in";
+    }
+    return (
+      <li>
+        <button
+          className={this.props.service + ' btn btn-link iwc-icn-' + serviceIcnClassname}
+          type="button"
+        >
+          <span>Share to {this.props.name}</span>
+        </button>
+      </li>
+    );
+  }
 }
 
 export class Permalink extends React.Component {
@@ -29,7 +55,7 @@ export class Permalink extends React.Component {
     permaUrl += window.location.host;
     permaUrl += this.props.post.url.index;
 
-    prompt(gettext("Permament link to this post:"), permaUrl);
+    prompt(gettext("Permanent link to this post:"), permaUrl);
   };
 
   render() {
@@ -43,7 +69,7 @@ export class Permalink extends React.Component {
           <span className="material-icon">
             link
           </span>
-          {gettext("Permament link")}
+          {gettext("Permanent link")}
         </button>
       </li>
     );

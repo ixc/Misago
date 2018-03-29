@@ -73,15 +73,28 @@ export default class extends React.Component {
     const parent = this.props.categories[this.props.route.category.parent];
 
     return (
-      <div className="hidden-xs col-sm-2 col-lg-1">
-        <Link
-          className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
-          to={parent.url.index + this.props.route.list.path}
-        >
-          <span className="material-icon">
-            keyboard_arrow_left
-          </span>
-        </Link>
+      <div className="go-back-button hidden-xs col-sm-2 col-lg-1">
+        {(parent.parent !== null) ? (
+          <Link
+            className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
+            to={parent.url.index + this.props.route.list.path}
+          >
+            <span className="material-icon">
+              keyboard_arrow_left
+            </span>
+          </Link>
+        ) : (  // root category
+               // show a link to the homepage (which contains the category listing)
+               // instead of a link to /threads (root category page)
+            <a
+              className="btn btn-default btn-icon btn-aligned btn-go-back btn-block btn-outline"
+              href="/"
+            >
+              <span className="material-icon">
+                keyboard_arrow_left
+              </span>
+            </a>
+        )}
       </div>
     );
     /* jshint ignore:end */
@@ -92,7 +105,7 @@ export default class extends React.Component {
 
     /* jshint ignore:start */
     return (
-      <div className="col-xs-6">
+      <div className="start-thread-button col-xs-12">
         <Button
           className="btn-primary btn-block btn-outline"
           onClick={this.startThread}
@@ -113,7 +126,7 @@ export default class extends React.Component {
 
     /* jshint ignore:start */
     return (
-      <div className="col-xs-6">
+      <div className="mark-as-read-button col-xs-6">
         <Button
           className="btn-default btn-block btn-outline"
           onClick={this.markAsRead}
@@ -130,6 +143,22 @@ export default class extends React.Component {
     /* jshint ignore:end */
   }
 
+  /* jshint ignore:start */
+  getBreadcrumb(category) {
+    // example: HOME / COMMUNITY
+    return (
+      <div className="page-breadcrumbs">
+        <div className="container">
+          <ol className="breadcrumb hidden-xs">
+            <li><a href="/">Home</a></li>
+            <li><a href={category.url.index}>{category.name}</a></li>
+          </ol>
+        </div>
+      </div>
+    );
+  }
+  /* jshint ignore:end */
+
   render() {
     /* jshint ignore:start */
     let headerClassName = 'col-xs-12';
@@ -139,12 +168,16 @@ export default class extends React.Component {
 
     const isAuthenticated = !!this.props.user.id;
 
+    var category = this.props.route.category;
+    var showBreadcrumb = (category.parent !== null || category.name.startsWith("Private"));
+
     return (
       <div className="page-header-bg">
         <div className="page-header">
+          { showBreadcrumb ? this.getBreadcrumb(category) : '' }
           <div className="container">
             <div className="row">
-              <div className={isAuthenticated ? "col-sm-6 col-md-8" : "col-xs-12"}>
+              <div className={isAuthenticated ? "col-sm-9 col-md-10" : "col-xs-12"}>
                 <div className="row">
                   {this.getGoBackButton()}
                   <div className={headerClassName}>
@@ -157,9 +190,9 @@ export default class extends React.Component {
                 </div>
               </div>
               {isAuthenticated && (
-                <div className="col-sm-6 col-md-4 xs-margin-top">
+                <div className="col-sm-3 col-md-2 xs-margin-top">
                   <div className="row">
-                    {this.getMarkAsReadButton()}
+                    {/* {this.getMarkAsReadButton()} */}
                     {this.getStartThreadButton()}
                   </div>
                 </div>

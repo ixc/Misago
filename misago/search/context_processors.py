@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied
-from django.urls import reverse
+from django.urls import reverse, exceptions
 from django.utils import six
 
 from .searchproviders import searchproviders
@@ -20,6 +20,13 @@ def search_providers(request):
 
     request.frontend_context['SEARCH_URL'] = reverse('misago:search')
     request.frontend_context['SEARCH_API'] = reverse('misago:api:search')
+    # TODO `search_autocomplete` feature is currently only implemented in
+    # downstream repository, make it optional in Misago for now
+    try:
+        request.frontend_context['SEARCH_AUTOCOMPLETE_API'] = \
+            reverse('search_autocomplete')
+    except exceptions.NoReverseMatch:
+        pass
     request.frontend_context['SEARCH_PROVIDERS'] = []
 
     for provider in allowed_providers:

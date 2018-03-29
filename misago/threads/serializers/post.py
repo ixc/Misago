@@ -12,6 +12,7 @@ __all__ = ['PostSerializer']
 UserSerializer = BaseUserSerializer.subset_fields(
     'id',
     'username',
+    'fullname',
     'rank',
     'avatars',
     'signature',
@@ -19,6 +20,9 @@ UserSerializer = BaseUserSerializer.subset_fields(
     'status',
     'posts',
     'url',
+    'joined_on',
+    'location',
+    'website',
 )
 
 
@@ -46,6 +50,7 @@ class PostSerializer(serializers.ModelSerializer, MutableFields):
             'id',
             'poster',
             'poster_name',
+            'poster_signature_parsed',
             'poster_ip',
             'content',
             'attachments',

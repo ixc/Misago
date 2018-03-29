@@ -296,6 +296,7 @@ class UserViewSet(viewsets.GenericViewSet):
 UserProfileSerializer = UserSerializer.subset_fields(
     'id',
     'username',
+    'fullname',
     'slug',
     'email',
     'joined_on',
@@ -315,4 +316,5 @@ UserProfileSerializer = UserSerializer.subset_fields(
     'status',
     'api',
     'url',
+    'user_badge_css_classes',
 )

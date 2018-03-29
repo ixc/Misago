@@ -154,6 +154,22 @@ export default class extends React.Component {
     }
   }
 
+  /* jshint ignore:start */
+  getBreadcrumb(user) {
+    // example: HOME / JOHN
+    return (
+      <div className="page-breadcrumbs">
+        <div className="container">
+          <ol className="breadcrumb hidden-xs">
+            <li><a href="/">Home</a></li>
+            <li><a href={user.url.index}>{user.fullname}</a></li>
+          </ol>
+        </div>
+      </div>
+    );
+  }
+  /* jshint ignore:end */
+
   render() {
     /* jshint ignore:start */
     const canFollow = this.props.profile.acl.can_follow;
@@ -161,6 +177,7 @@ export default class extends React.Component {
 
     const isProfileOwner = this.props.user.id === this.props.profile.id;
     const canMessage = !isProfileOwner && this.props.user.acl.can_start_private_threads;
+    const hasBadges = typeof this.props.profile.user_badge_css_classes !== "undefined";
 
     let cols = 0;
     if (canFollow) cols += 1;
@@ -177,6 +194,9 @@ export default class extends React.Component {
     return (
       <div className="page-header-bg">
         <div className={headerClassName}>
+
+          {this.getBreadcrumb(this.props.profile)}
+
           <div className="container">
 
             <IsDisabledMessage
@@ -195,7 +215,15 @@ export default class extends React.Component {
                       size="100"
                       size2x="200"
                     />
-                    <h1>{this.props.profile.username}</h1>
+
+                    {!!hasBadges && (
+                    <div className="user-badges">
+                      {this.props.profile.user_badge_css_classes.map((item, index) => (
+                        <span className={item} />
+                      ))}
+                    </div>
+                    )}
+                    <h1>{this.props.profile.fullname}</h1>
 
                   </div>
                   {!!cols && (

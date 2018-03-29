@@ -1,8 +1,11 @@
+from importlib import import_module
+
 from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
+from misago.conf import settings
 from misago.core.serializers import MutableFields
 
 from . import RankSerializer
@@ -29,6 +32,7 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
     email = serializers.SerializerMethodField()
     rank = RankSerializer(many=False, read_only=True)
     signature = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
 
     acl = serializers.SerializerMethodField()
     is_followed = serializers.SerializerMethodField()
@@ -38,6 +42,8 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
 
     api = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
+
+    user_badge_css_classes = serializers.SerializerMethodField()
 
     class Meta:
         model = UserModel
@@ -53,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
             'is_avatar_locked',
             'signature',
             'is_signature_locked',
+            'location',
             'followers',
             'following',
             'threads',
@@ -66,6 +73,8 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
 
             'api',
             'url',
+
+            'user_badge_css_classes',
         ]
 
     def get_acl(self, obj):
@@ -98,11 +107,39 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
         else:
             return None
 
+    def get_location(self, obj):
+        """ Only include user's location if they have made it public """
+        if obj._get_profile_field_value('is_location_public', default=False):
+            return obj.location
+        else:
+            return None
+
     def get_status(self, obj):
         try:
             return StatusSerializer(obj.status).data
         except AttributeError:
             return None
+
+    def get_user_badge_css_classes(self, obj):
+        """
+        Return CSS class "badge" names for rankings applied to the User, if
+        any.
+
+        This relies on the optional setting `MISAGO_USER_BADGES_FUNCTION`
+        which must point to a function that takes a `User` object and returns
+        the appropriate CSS class names.
+        """
+        fn_import_path = getattr(
+            settings, 'MISAGO_USER_BADGES_FUNCTION', None)
+        if fn_import_path:
+            splits = fn_import_path.rsplit('.')
+            module_path = '.'.join(splits[:-1])
+            fn_name = splits[-1]
+            module = import_module(module_path)
+            fn = getattr(module, fn_name)
+            return fn(obj)
+        else:
+            return []
 
     def get_api(self, obj):
         return {
@@ -186,7 +223,7 @@ class UserSerializer(serializers.ModelSerializer, MutableFields):
 
 UserCardSerializer = UserSerializer.subset_fields(
     'id',
-    'username',
+    'fullname',
     'joined_on',
     'rank',
     'title',
