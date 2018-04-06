@@ -38,7 +38,7 @@ class ReplyMiddleware(PostingMiddleware):
         self.post.update_search_vector()
         update_post_checksum(self.post)
 
-        self.post.update_fields += ['checksum']  # TODO , 'search_vector']
+        self.post.update_fields += ['checksum', 'search_vector']
 
         if self.mode == PostingEndpoint.START:
             self.thread.set_first_post(self.post)

@@ -99,6 +99,10 @@ MISAGO_POST_VALIDATORS = [
 MISAGO_POST_SEARCH_FILTERS = [
     'misago.core.testproject.searchfilters.test_filter',
 ]
+
+# remove search queries, the default ones won't work with mysql
+MISAGO_SEARCH_EXTENSIONS = [
+]
 """
 
     if os.environ.get('TRAVIS'):

@@ -2,13 +2,12 @@ from __future__ import unicode_literals
 
 import copy
 
-from django.contrib.postgres.indexes import GinIndex
-# from django.contrib.postgres.search import SearchVector, SearchVectorField  # TODO
 from django.db import models
 from django.utils import six, timezone
 from django.utils.encoding import python_2_unicode_compatible
 
 from extras.oms_json.fields import JSONField
+from django_elasticsearch_dsl.registries import registry
 
 from misago.conf import settings
 from misago.core.pgutils import PgPartialIndex
@@ -203,12 +202,19 @@ class Post(models.Model):
         self.search_document = filter_search(document)
 
     def update_search_vector(self):
-        pass
-        # TODO
-        # self.search_vector = SearchVector(
-        #     'search_document',
-        #     config=settings.MISAGO_SEARCH_CONFIG,
-        # )
+        model_docs = registry.get_documents(models=[self.__class__])
+        for model_doc in model_docs:
+            # TODO flag ES update failure here
+            model_doc().update(self, refresh=True)
+
+    def save(self, *args, **kwargs):
+        if 'update_fields' in kwargs and 'search_vector' in kwargs['update_fields']:
+            # updating search field which doesn't exist anymore, we will update ES instead in update_search_vector
+            update_fields = kwargs.get('update_fields')
+            update_fields.remove('search_vector')
+
+        # save the instance normally
+        super(Post, self).save(**kwargs)
 
     @property
     def short(self):

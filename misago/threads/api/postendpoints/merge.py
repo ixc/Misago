@@ -42,7 +42,7 @@ def posts_merge_endpoint(request, thread):
     first_post.save()
 
     first_post.update_search_vector()
-    # first_post.save(update_fields=['search_vector'])  # TODO
+    first_post.save(update_fields=['search_vector'])
 
     thread.synchronize()
     thread.save()
