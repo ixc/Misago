@@ -133,7 +133,7 @@ TEST_NAME = 'travis_ci_test'
         settings_file += """
 DATABASES = {
     'default': {
-        'ENGINE': 'extras.old_mysql_backend',
+        'ENGINE': 'oldmysqlbackend',
         'NAME': 'misago_test',
         'USER': '%s',
         'PASSWORD': '',
