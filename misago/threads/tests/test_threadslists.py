@@ -166,6 +166,20 @@ class ThreadsListTestCase(AuthenticatedUserTestCase):
     def assertNotContainsThread(self, response, thread):
         self.assertNotContains(response, u' href="{}"'.format(thread.get_absolute_url()))
 
+    def threadsPatternUrl(self, url):
+        """
+        The url that needs to be used for threads pages depends on the MISAGO_THREADS_ON_INDEX settings
+        which we're changing from its default value. The tests assume the default value so this does a check first.
+        """
+        fixed_url = ''
+
+        if settings.MISAGO_THREADS_ON_INDEX:
+            fixed_url = url
+        else:
+            fixed_url = '/threads{0}'.format(url)
+
+        return fixed_url
+
 
 class ApiTests(ThreadsListTestCase):
     def test_root_category(self):
@@ -249,7 +263,7 @@ class AllThreadsListTests(ThreadsListTestCase):
         for url in LISTS_URLS:
             self.access_all_categories()
 
-            response = self.client.get('/' + url)
+            response = self.client.get(self.threadsPatternUrl('/' + url))
             self.assertEqual(response.status_code, 200)
 
             self.access_all_categories()
@@ -272,7 +286,7 @@ class AllThreadsListTests(ThreadsListTestCase):
         for url in LISTS_URLS[1:]:
             self.access_all_categories()
 
-            response = self.client.get('/' + url)
+            response = self.client.get(self.threadsPatternUrl('/' + url))
             self.assertEqual(response.status_code, 403)
 
             self.access_all_categories()
@@ -302,7 +316,7 @@ class AllThreadsListTests(ThreadsListTestCase):
             category=self.category_b,
         )
 
-        response = self.client.get('/')
+        response = self.client.get(self.threadsPatternUrl('/'))
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, 'subcategory-%s' % self.category_a.css_class)
@@ -415,7 +429,7 @@ class AllThreadsListTests(ThreadsListTestCase):
             threads.append(testutils.post_thread(category=self.first_category))
 
         # secondary page renders
-        response = self.client.get('/?page=2')
+        response = self.client.get(self.threadsPatternUrl('/?page=2'))
         self.assertEqual(response.status_code, 200)
 
         for thread in threads[:threads_per_page]:
@@ -582,7 +596,7 @@ class ThreadsVisibilityTests(ThreadsListTestCase):
             category=self.category_c,
         )
 
-        response = self.client.get('/')
+        response = self.client.get(self.threadsPatternUrl('/'))
         self.assertEqual(response.status_code, 200)
 
         self.assertContainsThread(response, test_thread)
@@ -638,7 +652,7 @@ class ThreadsVisibilityTests(ThreadsListTestCase):
         test_category = Category.objects.get(slug='hidden-category')
         test_thread = testutils.post_thread(category=test_category)
 
-        response = self.client.get('/')
+        response = self.client.get(self.threadsPatternUrl('/'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "empty-message")
         self.assertNotContainsThread(response, test_thread)
@@ -712,7 +726,7 @@ class ThreadsVisibilityTests(ThreadsListTestCase):
             is_hidden=True,
         )
 
-        response = self.client.get('/')
+        response = self.client.get(self.threadsPatternUrl('/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -732,7 +746,7 @@ class ThreadsVisibilityTests(ThreadsListTestCase):
             is_hidden=True,
         )
 
-        response = self.client.get('/')
+        response = self.client.get(self.threadsPatternUrl('/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -817,7 +831,7 @@ class MyThreadsListTests(ThreadsListTestCase):
         """list renders empty"""
         self.access_all_categories()
 
-        response = self.client.get('/my/')
+        response = self.client.get(self.threadsPatternUrl('/my/'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "empty-message")
 
@@ -852,7 +866,7 @@ class MyThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/my/')
+        response = self.client.get(self.threadsPatternUrl('/my/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, test_thread)
         self.assertNotContainsThread(response, other_thread)
@@ -887,7 +901,7 @@ class NewThreadsListTests(ThreadsListTestCase):
         """list renders empty"""
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "empty-message")
 
@@ -917,7 +931,7 @@ class NewThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, test_thread)
 
@@ -961,7 +975,7 @@ class NewThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, test_thread)
 
@@ -1000,7 +1014,7 @@ class NewThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1037,7 +1051,7 @@ class NewThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1074,7 +1088,7 @@ class NewThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1113,7 +1127,7 @@ class NewThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/new/')
+        response = self.client.get(self.threadsPatternUrl('/new/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1144,7 +1158,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
         """list renders empty"""
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "empty-message")
 
@@ -1185,7 +1199,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, test_thread)
 
@@ -1223,7 +1237,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1262,7 +1276,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1306,7 +1320,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1353,7 +1367,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1402,7 +1416,7 @@ class UnreadThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/unread/')
+        response = self.client.get(self.threadsPatternUrl('/unread/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1442,7 +1456,7 @@ class SubscribedThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/subscribed/')
+        response = self.client.get(self.threadsPatternUrl('/subscribed/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, test_thread)
 
@@ -1477,7 +1491,7 @@ class SubscribedThreadsListTests(ThreadsListTestCase):
 
         self.access_all_categories()
 
-        response = self.client.get('/subscribed/')
+        response = self.client.get(self.threadsPatternUrl('/subscribed/'))
         self.assertEqual(response.status_code, 200)
         self.assertNotContainsThread(response, test_thread)
 
@@ -1511,7 +1525,7 @@ class UnapprovedListTests(ThreadsListTestCase):
     def test_list_errors_without_permission(self):
         """list errors if user has no permission to access it"""
         TEST_URLS = (
-            '/unapproved/', self.category_a.get_absolute_url() + 'unapproved/',
+            self.threadsPatternUrl('/unapproved/'), self.category_a.get_absolute_url() + 'unapproved/',
             '%s?list=unapproved' % self.api_link,
         )
 
@@ -1556,7 +1570,7 @@ class UnapprovedListTests(ThreadsListTestCase):
             'can_see_unapproved_content_lists': True,
         })
 
-        response = self.client.get('/unapproved/')
+        response = self.client.get(self.threadsPatternUrl('/unapproved/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, visible_thread)
         self.assertNotContainsThread(response, hidden_thread)
@@ -1600,7 +1614,7 @@ class UnapprovedListTests(ThreadsListTestCase):
         self.access_all_categories(base_acl={
             'can_see_unapproved_content_lists': True,
         })
-        response = self.client.get('/unapproved/')
+        response = self.client.get(self.threadsPatternUrl('/unapproved/'))
         self.assertEqual(response.status_code, 200)
         self.assertContainsThread(response, visible_thread)
         self.assertNotContainsThread(response, hidden_thread)
