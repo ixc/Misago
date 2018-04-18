@@ -7,6 +7,9 @@ from misago.admin.testutils import AdminTestCase
 @override_settings(ROOT_URLCONF='misago.core.testproject.urls')
 class DjangoAdminAuthTests(AdminTestCase):
     """assertions for Django admin auth interop with Misago User Model"""
+    def setUp(self):
+        pass
+        # self.skipTest("Different root url")
 
     def test_login(self):
         """its possible to sign in to django admin"""
