@@ -56,8 +56,8 @@ class ParticipantsSerializer(serializers.Serializer):
         max_participants = self.context['user'].acl_cache['max_private_thread_participants']
         if max_participants and len(clean_usernames) > max_participants:
             message = ungettext(
-                "You can't add more than %(users)s user to private message (you've added %(added)s).",
-                "You can't add more than %(users)s users to private message (you've added %(added)s).",
+                "You can't add more than %(users)s user to private thread (you've added %(added)s).",
+                "You can't add more than %(users)s users to private thread (you've added %(added)s).",
                 max_participants,
             )
             raise serializers.ValidationError(

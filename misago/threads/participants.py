@@ -140,7 +140,7 @@ def add_participants(request, thread, users):
 
 
 def build_noticiation_email(request, thread, user):
-    subject = _('%(user)s has invited you to participate to: "%(thread)s"')
+    subject = _('%(user)s has invited you to participate in private thread "%(thread)s"')
     subject_formats = {
         'thread': thread.title,
         'user': request.user.username,
