@@ -9,7 +9,7 @@ export default function(props) {
   return (
     <div className="row row-toolbar">
       <div className="col-xs-12 text-center visible-xs-block">
-        <More {...props} />
+        <More more={props.posts.more} />
         <div className="toolbar-vertical-spacer" />
       </div>
       <div className="col-md-7">
@@ -18,7 +18,7 @@ export default function(props) {
             <Pager {...props} />
           </div>
           <div className="col-sm-8 col-md-7 hidden-xs">
-            <More {...props} />
+            <More more={props.posts.more} />
           </div>
         </div>
       </div>
@@ -67,13 +67,11 @@ export function Subscription(props) {
 
   return (
     <div className={xsClass + " col-sm-4"}>
-      {/*
       <SubscriptionSwitch
         btnClassName="btn-block"
         className="dropup"
         {...props}
       />
-      */}
     </div>
   );
 }
@@ -84,7 +82,7 @@ export function Reply(props) {
   return (
     <div className="col-xs-6 col-sm-4">
       <ReplyButton
-        className="btn btn-primary btn-block btn-outline reply-button"
+        className="btn btn-primary btn-block btn-outline"
         onClick={props.onClick}
       />
     </div>

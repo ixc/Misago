@@ -17,7 +17,7 @@ export default function({ result }) {
             <Avatar size={38} user={result} />
           </div>
           <div className="media-body">
-            <h5 className="media-heading">{result.fullname}</h5>
+            <h5 className="media-heading">{result.username}</h5>
             <small>
               {interpolate(detail, {
                 title,

@@ -59,12 +59,6 @@ export class UserMenu extends React.Component {
         </li>
         <li className="divider" />
         <li>
-          <a href="/cockpit/">
-            <span className="material-icon">explore</span>
-            {gettext("Cockpit")}
-          </a>
-        </li>
-        <li>
           <a href={user.url}>
             <span className="material-icon">account_circle</span>
             {gettext("See your profile")}
@@ -90,7 +84,7 @@ export class UserMenu extends React.Component {
           <li>
             <a href={misago.get('PRIVATE_THREADS_URL')}>
               <span className="material-icon">message</span>
-              {gettext("Private messages")}
+              {gettext("Private threads")}
               <PrivateThreadsBadge user={user} />
             </a>
           </li>
@@ -141,7 +135,7 @@ export function UserNav({ user }) {
           href={user.url}
           role="button"
         >
-          {gettext("My Account")}
+          <Avatar user={user} size="64" />
         </a>
         <UserMenu user={user} />
       </li>
@@ -159,7 +153,7 @@ export function UserPrivateThreadsLink({ user }) {
       <a
         className="navbar-icon"
         href={misago.get('PRIVATE_THREADS_URL')}
-        title={gettext("You have unread private messages.")}>
+        title={gettext("You have unread private threads.")}>
         <span className="material-icon">
           message
         </span>
@@ -189,7 +183,7 @@ export class CompactUserNav extends React.Component {
     /* jshint ignore:start */
     return (
       <button type="button" onClick={this.showUserMenu}>
-        {gettext("My Account")}
+        <Avatar user={this.props.user} size="50" />
       </button>
     );
     /* jshint ignore:end */

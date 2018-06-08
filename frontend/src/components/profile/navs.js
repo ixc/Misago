@@ -24,15 +24,6 @@ export class SideNav extends React.Component {
             </Link>
           );
         })}
-        <a
-            href={this.props.baseUrl + 'update-signature' + '/'}
-            className="list-group-item"
-            /* activeClassName="active" */
-            key=""
-          >
-            <span className="material-icon">fingerprint</span>
-            Signature
-          </a>
       </div>
     );
     // jshint ignore:end

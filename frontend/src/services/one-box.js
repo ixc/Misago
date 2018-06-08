@@ -1,11 +1,8 @@
 const ytRegExp = new RegExp('^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*');
-const vimeoRegExp = new RegExp('^.*(vimeo\.com\/)((channels\/[A-z]+\/)|(groups\/[A-z]+\/videos\/))?([0-9]+)');
-
 
 export class OneBox {
   constructor() {
     this._youtube = {};
-    this._vimeo = {};
   }
 
   // jshint ignore:start
@@ -13,7 +10,6 @@ export class OneBox {
     if (!domnode) return;
     this.highlightCode(domnode);
     this.embedYoutubePlayers(domnode);
-    this.embedVimeoPlayers(domnode);
   };
   // jshint ignore:end
 
@@ -55,42 +51,13 @@ export class OneBox {
     $(element).replaceWith(player);
     player.wrap('<div class="embed-responsive embed-responsive-16by9"></div>');
   }
-
-  embedVimeoPlayers(domnode) {
-    const anchors = domnode.querySelectorAll('p>a');
-    for(let i = 0; i < anchors.length; i++ ) {
-      const a = anchors[i];
-      const p = a.parentNode;
-      const onlyChild = p.childNodes.length === 1;
-
-      if (!this._vimeo[a.href]) {
-        this._vimeo[a.href] = parseVimeoUrl(a.href);
-      }
-
-      const vimeoMovie = this._vimeo[a.href];
-      if (onlyChild && !!vimeoMovie && vimeoMovie.data !== false) {
-        this.swapVimeoPlayer(a, vimeoMovie);
-      }
-    }
-  }
-
-  swapVimeoPlayer(element, vimeo) {
-    let url = 'https://player.vimeo.com/video/';
-    url += vimeo.video; // e.g. 37769779
-    url += '?byline=0&portrait=0';
-
-    const player = $('<iframe class="embed-responsive-item" src="' + url + '" allowfullscreen></iframe>');
-    $(element).replaceWith(player);
-    player.wrap('<div class="embed-responsive embed-responsive-16by9"></div>');
-  }
-
 }
 
 export default new OneBox();
 
 export function parseYoutubeUrl(url) {
   const cleanedUrl = cleanUrl(url);
-  const video = getYoutubeVideoIdFromUrl(cleanedUrl);
+  const video = getVideoIdFromUrl(cleanedUrl);
 
   if (!video) return null;
 
@@ -120,18 +87,6 @@ export function parseYoutubeUrl(url) {
   };
 }
 
-export function parseVimeoUrl(url) {
-  const cleanedUrl = cleanUrl(url);
-  const video = getVimeoVideoIdFromUrl(cleanedUrl);
-
-  if (!video) return null;
-
-  return {
-    // start,
-    video
-  };
-}
-
 export function cleanUrl(url) {
   let clean = url;
 
@@ -148,22 +103,12 @@ export function cleanUrl(url) {
   return clean;
 }
 
-export function getYoutubeVideoIdFromUrl(url) {
+export function getVideoIdFromUrl(url) {
   if (url.indexOf('youtu') === -1) return null;
 
   const video = url.match(ytRegExp);
   if (video) {
     return video[1];
-  }
-  return null;
-}
-
-export function getVimeoVideoIdFromUrl(url) {
-  //if (url.indexOf('youtu') === -1) return null;
-
-  const video = url.match(vimeoRegExp);
-  if (video) {
-    return video[5];
   }
   return null;
 }

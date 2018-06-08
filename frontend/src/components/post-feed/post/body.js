@@ -15,11 +15,6 @@ export function Default(props) {
  return (
     <div className="post-body">
       <MisagoMarkup markup={props.post.content} />
-      {props.post.poster_signature_parsed ?
-        <div
-          className="signature"
-          dangerouslySetInnerHTML={{__html: props.post.poster_signature_parsed}}
-        /> : null}
     </div>
   );
 }

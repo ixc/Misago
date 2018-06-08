@@ -22,11 +22,6 @@ export function Default(props) {
  return (
     <Waypoint className="post-body" post={props.post}>
       <MisagoMarkup markup={props.post.content} />
-      {props.post.poster_signature_parsed ?
-        <div
-          className="signature"
-          dangerouslySetInnerHTML={{__html: props.post.poster_signature_parsed}}
-        /> : null}
     </Waypoint>
   );
 }

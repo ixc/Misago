@@ -183,7 +183,7 @@ export function Reply(props) {
   return (
     <div className="col-sm-4 hidden-xs">
       <ReplyButton
-        className="btn btn-primary btn-block btn-outline reply-button"
+        className="btn btn-primary btn-block btn-outline"
         onClick={props.openReplyForm}
       />
     </div>
@@ -194,7 +194,7 @@ export function SubscriptionMenu(props) {
   if (!props.user.id) return null;
 
   return (
-    <div className="col-xs-12 col-sm-4 subscription-menu-container">
+    <div className="col-xs-12 col-sm-4">
       <Subscription
         className="dropdown"
         dropdownClassName="dropdown-menu dropdown-menu-right stick-to-bottom"

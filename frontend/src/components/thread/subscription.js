@@ -41,9 +41,9 @@ export function getLabel(subscription) {
   if (subscription === true) {
     return gettext("E-mail");
   } else if (subscription === false) {
-    return gettext("Subscribed");
+    return gettext("Enabled");
   } else {
-    return gettext("Subscribe");
+    return gettext("Disabled");
   }
 }
 

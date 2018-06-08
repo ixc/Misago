@@ -90,7 +90,7 @@ export default class extends Form {
     if (this.state.isEditing) {
       return (
         <div className="page-header">
-          <Breadcrumbs thread={thread} />
+          <Breadcrumbs path={thread.path} />
           <div className="container">
             <div className="row xs-margin-top title-edit-form">
               <form onSubmit={this.handleSubmit}>
@@ -135,7 +135,7 @@ export default class extends Form {
     } else if (user.id && thread.acl.can_edit) {
       return (
         <div className="page-header">
-          <Breadcrumbs thread={thread} />
+          <Breadcrumbs path={thread.path} />
           <div className="container">
             <div className="row">
               <div className={showModeration ? "col-sm-9 col-md-8" : "col-sm-10 col-md-10"}>
@@ -171,7 +171,7 @@ export default class extends Form {
     } else if (showModeration) {
       return (
         <div className="page-header">
-          <Breadcrumbs thread={thread} />
+          <Breadcrumbs path={thread.path} />
           <div className="container">
             <div className="row">
               <div className="col-sm-9 col-md-10">
@@ -196,7 +196,7 @@ export default class extends Form {
 
     return (
       <div className="page-header">
-        <Breadcrumbs thread={thread} />
+        <Breadcrumbs path={thread.path} />
         <div className="container">
           <h1>{thread.title}</h1>
         </div>

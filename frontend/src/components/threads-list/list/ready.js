@@ -11,14 +11,6 @@ export default function(props) {
           diffSize={props.diffSize}
           applyDiff={props.applyDiff}
         />
-        <li>
-          <div className="row">
-            <div className="col-md-9"></div>
-            <div className="col-md-3 hidden-xs hidden-sm thread-last-action-header">
-              <p>Last posted</p>
-            </div>
-          </div>
-        </li>
         {props.threads.map((thread) => {
           return (
             <Thread

@@ -27,8 +27,6 @@
     "jQuery",
     "hljs",
 
-    "phantom",
-
-    "module"
+    "phantom"
   ]
 }

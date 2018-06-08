@@ -1,6 +1,5 @@
 import React from 'react'; //jshint ignore:line
-//import Editor from 'misago/components/editor'; //jshint ignore:line
-import CKEditor from 'misago/components/ckeditor'; //jshint ignore:line
+import Editor from 'misago/components/editor'; //jshint ignore:line
 import Form from 'misago/components/form';
 import Container from './utils/container'; //jshint ignore:line
 import Loader from './utils/loader'; //jshint ignore:line
@@ -42,7 +41,7 @@ export default class extends Form {
     this.setState({
       isReady: true,
 
-      post: data.content, // data.content is the HTML version. Markdown: data.post
+      post: data.post,
       attachments: attachments.hydrate(data.attachments),
       protect: data.is_protected,
 
@@ -76,8 +75,7 @@ export default class extends Form {
   };
 
   onPostChange = (event) => {
-    this.changeValue('post', event.editor.getData());
-    // this.changeValue('post', event.target.value);
+    this.changeValue('post', event.target.value);
   };
 
   onAttachmentsChange = (attachments) => {
@@ -145,18 +143,6 @@ export default class extends Form {
             <div className="row">
               <div className="col-md-12">
 
-                <CKEditor
-                  content={this.state.post}
-                  events={{
-                    //blur: this.onBlur,
-                    //afterPaste: this.afterPaste,
-                    change:this.onPostChange,
-                  }}
-                  submitLabel={gettext("Edit reply")}
-                  onCancel={this.onCancel}
-                />
-
-                {/*
                 <Editor
                   attachments={this.state.attachments}
                   canProtect={this.state.canProtect}
@@ -170,7 +156,6 @@ export default class extends Form {
                   submitLabel={gettext("Edit reply")}
                   value={this.state.post}
                 />
-                */}
 
               </div>
             </div>
