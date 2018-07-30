@@ -10,7 +10,7 @@ django-mysql~=2.2
 fake-factory
 html5lib==0.999999999
 markdown~=2.6.8
-MySQL-python~=1.2
+#MySQL-python~=1.2
 path.py~=10.3.1
 pillow~=4.1.1
 psycopg2~=2.7.1
