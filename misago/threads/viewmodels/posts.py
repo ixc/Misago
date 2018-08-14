@@ -1,7 +1,7 @@
 from misago.acl import add_acl
 from misago.conf import settings
 from misago.core.shortcuts import paginate, pagination_dict
-from misago.readtracker.threadstracker import make_posts_read_aware
+from misago.readtracker.poststracker import make_read_aware
 from misago.threads.paginator import PostsPaginator
 from misago.threads.permissions import exclude_invisible_posts
 from misago.threads.serializers import PostSerializer
@@ -62,7 +62,7 @@ class ViewModel(object):
 
         # make posts and events ACL and reads aware
         add_acl(request.user, posts)
-        make_posts_read_aware(request.user, thread_model, posts)
+        make_read_aware(request.user, posts)
 
         self._user = request.user
 
@@ -71,6 +71,7 @@ class ViewModel(object):
 
     def get_posts_queryset(self, request, thread):
         queryset = thread.post_set.select_related(
+            'category',
             'poster',
             'poster__rank',
             'poster__ban_cache',
@@ -79,7 +80,13 @@ class ViewModel(object):
         return exclude_invisible_posts(request.user, thread.category, queryset)
 
     def get_events_queryset(self, request, thread, limit, first_post=None, last_post=None):
-        queryset = thread.post_set.select_related('poster').filter(is_event=True)
+        queryset = thread.post_set.select_related(
+            'category',
+            'poster',
+            'poster__rank',
+            'poster__ban_cache',
+            'poster__online_tracker',
+        ).filter(is_event=True)
 
         if first_post:
             queryset = queryset.filter(pk__gt=first_post.pk)
