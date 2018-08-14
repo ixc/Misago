@@ -88,5 +88,5 @@ class PrivateThreadsCategory(ViewModel):
 
 BasicCategorySerializer = CategorySerializer.subset_fields(
     'id', 'parent', 'name', 'description', 'is_closed', 'css_class',
-    'level', 'lft', 'rght', 'is_read', 'api', 'url', 'posts', 'threads'
+    'level', 'lft', 'rght', 'is_read', 'url', 'posts', 'threads'
 )
