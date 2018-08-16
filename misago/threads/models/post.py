@@ -204,8 +204,13 @@ class Post(models.Model):
     def update_search_vector(self):
         model_docs = registry.get_documents(models=[self.__class__])
         for model_doc in model_docs:
-            # TODO flag ES update failure here
-            model_doc().update(self, refresh=True)
+
+            try:
+                model_doc().update(self, refresh=True)
+            except Exception as ex:
+                # TODO flag ES update failure here
+                print('ES not found')
+                pass
 
     def save(self, *args, **kwargs):
         if 'update_fields' in kwargs and 'search_vector' in kwargs['update_fields']:
