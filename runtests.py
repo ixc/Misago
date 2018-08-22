@@ -139,9 +139,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'oldmysqlbackend',
         'NAME': 'misago_test',
-        'USER': '%s',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',
+        'HOST': '127.0.0.1',
         'PORT': '',
         # Recommended MySQL options
         'OPTIONS': {
@@ -157,7 +157,7 @@ DATABASES = {
         }
     }
 }
-""" % pwd.getpwuid(os.getuid())[0]
+"""
 
     with open(settings_path, "w") as py_file:
         py_file.write(settings_file)
