@@ -35,7 +35,8 @@ class ThreadSerializer(serializers.ModelSerializer, MutableFields):
 
     api = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
-    # new design calls for displaying user's full name instead of username which is the default
+    # override default display of thread last_poster_name. it used to be username
+    # then design called for full name and then client asked for username again
     last_poster_name = serializers.SerializerMethodField()
 
     class Meta:
@@ -146,14 +147,22 @@ class ThreadSerializer(serializers.ModelSerializer, MutableFields):
 
     def get_last_poster_name(self, obj):
         """
-        To accommodate change in frontend, this overrides the last_poster_name attribute by sending back
-        the full name of the user if defined instead of the username which is the default attribute
-        stored in the thread.last_poster_name
+        This overrides the default last_poster_name in the thread object to return
+        whatever the UI needs.
+
+        To accommodate change in frontend, this used to override the last_poster_name
+        attribute serialization by sending back the full name of the user if defined
+        instead of the username which was the default attribute stored before it was
+        changed for the demo.
+
+        The client then asked for this to be changed back to be the username but now
+        we have a mix of user names and full names in the database due to the demo-time
+        changes.
         :param obj: thread
-        :return: [str] the full name of the last user to post if defined or their username
+        :return: [str] the user name of the last user to post
         """
         if obj.last_poster:
-            return obj.last_poster.profile_fields.get('fullname', obj.last_poster.username)
+            return obj.last_poster.username
         else:
             return obj.last_poster_name
 
