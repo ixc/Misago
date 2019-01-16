@@ -74,6 +74,7 @@ def patch_is_liked(request, post, value):
         post.last_likes.append({
             'id': like.liker_id,
             'username': like.liker_name,
+            'fullname': like.liker.fullname if like.liker else 'User'
         })
 
     post.save(update_fields=['likes', 'last_likes'])
