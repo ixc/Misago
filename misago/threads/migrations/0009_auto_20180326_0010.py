@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddIndex(
-            model_name='post',
-            index=misago.core.pgutils.PgPartialIndex(fields=['is_event', 'event_type'], name='misago_thre_is_even_42bda7_part', where={'is_event': True}),
-        ),
+        # migrations.AddIndex(
+        #     model_name='post',
+        #     index=misago.core.pgutils.PgPartialIndex(fields=['is_event', 'event_type'], name='misago_thre_is_even_42bda7_part', where={'is_event': True}),
+        # ),
     ]

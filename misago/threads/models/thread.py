@@ -108,36 +108,36 @@ class Thread(models.Model):
     legacy_id = models.BigIntegerField(blank=True, null=True, help_text="Discussion ID from legacy IWC Forum")
 
     class Meta:
-        indexes = [
-            PgPartialIndex(
-                fields=['weight'],
-                where={'weight': 2},
-            ),
-            PgPartialIndex(
-                fields=['weight'],
-                where={'weight': 1},
-            ),
-            PgPartialIndex(
-                fields=['weight'],
-                where={'weight': 0},
-            ),
-            PgPartialIndex(
-                fields=['weight'],
-                where={'weight__lt': 2},
-            ),
-            PgPartialIndex(
-                fields=['has_reported_posts'],
-                where={'has_reported_posts': True},
-            ),
-            PgPartialIndex(
-                fields=['has_unapproved_posts'],
-                where={'has_unapproved_posts': True},
-            ),
-            PgPartialIndex(
-                fields=['is_hidden'],
-                where={'is_hidden': False},
-            ),
-        ]
+        # indexes = [
+        #     PgPartialIndex(
+        #         fields=['weight'],
+        #         where={'weight': 2},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['weight'],
+        #         where={'weight': 1},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['weight'],
+        #         where={'weight': 0},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['weight'],
+        #         where={'weight__lt': 2},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['has_reported_posts'],
+        #         where={'has_reported_posts': True},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['has_unapproved_posts'],
+        #         where={'has_unapproved_posts': True},
+        #     ),
+        #     PgPartialIndex(
+        #         fields=['is_hidden'],
+        #         where={'is_hidden': False},
+        #     ),
+        # ]
 
         index_together = [
             ['category', 'id'],
